@@ -1,6 +1,6 @@
 {
   "name": "@nikonov-alex/functional-library",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "Functional library",
   "main": "./build/index.js",
   "types": "./sources/index.ts",

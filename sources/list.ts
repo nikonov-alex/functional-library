@@ -9,12 +9,6 @@ const cons = <A>( first: A, rest: List<A> ): List<A> =>
 const isEmpty = ( value: unknown ): value is EmptyList =>
     EMPTY_LIST === value;
 
-const isCons = <A>( value: unknown, valuePredicate: { (v: unknown): v is A } ): value is List<A> =>
-    typeof value === "object" && value !== null &&
-    "first" in value && "rest" in value &&
-    valuePredicate( value.first ) &&
-    ( isCons( value.rest, valuePredicate ) || isEmpty( value.rest ) );
-
 
 
 
@@ -91,4 +85,4 @@ const find = <A>(
 
 
 
- export { EMPTY_LIST, cons, isEmpty, isCons, list, fold, map, filter, concat, prepend, reverse, find }
+ export { EMPTY_LIST, cons, isEmpty, list, fold, map, filter, concat, prepend, reverse, find }
