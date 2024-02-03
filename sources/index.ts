@@ -1,5 +1,4 @@
 import * as List from "./list";
+import * as Types from "./types";
 
-type Maybe<A> = A | false;
-
-export { Maybe, List };
+export { Types, List };

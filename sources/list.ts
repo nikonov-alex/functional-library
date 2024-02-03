@@ -1,13 +1,7 @@
-// ----- BASIC LIST IMPLEMENTATION -----
-type EmptyList = null;
-const EMPTY_LIST = null;
+import { Maybe, List, EmptyList } from "./types";
 
-type List<A> =
-    EmptyList |
-    {
-        first: A,
-        rest: List<A>
-    };
+// ----- BASIC LIST IMPLEMENTATION -----
+const EMPTY_LIST = null;
 
 const cons = <A>( first: A, rest: List<A> ): List<A> =>
     ( {  first, rest } );
@@ -84,7 +78,17 @@ const isCons = <A>( value: unknown, valuePredicate: { (v: unknown): v is A } ): 
          EMPTY_LIST
      );
 
+const find = <A>(
+    list: List<A>,
+    predicate: { ( value: A ): boolean }
+): Maybe<A> =>
+    isEmpty( list )
+        ? false
+    : ( predicate( list.first )
+        ? list.first
+        : find( list.rest, predicate )
+    );
 
 
 
- export { EmptyList, EMPTY_LIST, List, cons, isEmpty, isCons, list, fold, map, filter, concat, prepend, reverse }
+ export { EMPTY_LIST, cons, isEmpty, isCons, list, fold, map, filter, concat, prepend, reverse, find }
