@@ -1,9 +1,9 @@
 type Maybe<A> = A | false;
 
 type EmptyList = null;
-type Cons<A> = {
+type Cons<A, B=A> = {
     first: A,
-    rest: List<A>
+    rest: List<B>
 };
 type List<A> =
     EmptyList |
