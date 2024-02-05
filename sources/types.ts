@@ -1,12 +1,19 @@
 type Maybe<A> = A | false;
 
 type EmptyList = null;
-type Cons<A, B=A> = {
-    first: A,
-    rest: List<B>
-};
+
+type Cons<FIRST, REST extends (Cons<any, any> | EmptyList)> = {
+    first: FIRST,
+    rest: REST
+}
+
 type List<A> =
     EmptyList |
-    Cons<A>;
+    {
+        first: A,
+        rest: Cons<A, List<A>> | EmptyList
+    };
+
+
 
 export { Maybe, EmptyList, List, Cons };

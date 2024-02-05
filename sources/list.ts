@@ -1,9 +1,9 @@
-import { Maybe, List, EmptyList } from "./types";
+import { Maybe, List, EmptyList, Cons } from "./types";
 
 // ----- BASIC LIST IMPLEMENTATION -----
 const EMPTY_LIST = null;
 
-const cons = <A>( first: A, rest: List<A> ): List<A> =>
+const cons = <A, B, C extends (Cons<any, any> | EmptyList)>( first: A, rest: Cons<B, C> | EmptyList ): Cons<A, Cons<B, C> | EmptyList> =>
     ( {  first, rest } );
 
 const isEmpty = ( value: unknown ): value is EmptyList =>
