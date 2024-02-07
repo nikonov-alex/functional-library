@@ -83,6 +83,10 @@ const find = <A>(
         : find( list.rest, predicate )
     );
 
+const count = ( list: Cons<any, any> | EmptyList ): number =>
+    isEmpty( list ) ? 0
+    : count( list.rest ) + 1;
 
 
- export { EMPTY_LIST, cons, isEmpty, list, fold, map, filter, concat, prepend, reverse, find }
+
+ export { EMPTY_LIST, cons, isEmpty, list, fold, map, filter, concat, prepend, reverse, find, count }
