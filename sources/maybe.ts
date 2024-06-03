@@ -31,14 +31,15 @@ const updateParam = <P extends string, V extends any, S extends { [k: string]: a
 export const updateOptional = <P extends string, V extends any, S extends { [k: string]: any }>(
     state: S | Error,
     stateParam: P,
-    newValue: Maybe<V>
+    newValue: Maybe<V>,
+    defaultValue?: V
 ): Error | S | S & Record<P, V> =>
     state instanceof Error
         ? state
     : !newValue
-        ? undefined === state[stateParam]
+        ? defaultValue === state[stateParam]
             ? state
-            : { ... state, [stateParam]: undefined }
+            : { ... state, [stateParam]: defaultValue }
         : updateParam( state, stateParam, newValue );
 
 export const updateRequired = <P extends string, V extends any, S extends { [k: string]: any }>(
