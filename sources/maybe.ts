@@ -28,29 +28,23 @@ const updateParam = <P extends string, V extends any, S extends { [k: string]: a
         ? { ... state, [stateParam]: newValue }
         : state;
 
-export const updateOptional = <P extends string, V extends any, S extends { [k: string]: any } | Error, D extends V | undefined>(
-    state: S,
+export const updateOptional = <P extends string, V extends any, D extends V | undefined>(
     stateParam: P,
     newValue: Maybe<V>,
     defaultValue?: D
-): S extends { [k: string]: any } ? S & Record<P, D> | S & Record<P, V> : Error =>
-    //@ts-ignore
-    state instanceof Error
-        ? state
-    : !newValue
-        //@ts-ignore
-        ? defaultValue === state[stateParam]
-            ? state
-            : { ... state, [stateParam]: defaultValue }
-        : updateParam( state, stateParam, newValue );
+) =>
+    <S extends { [k: string]: any }>( state: S ): S & ( Record<P, V> | Record<P, D> ) =>
+        !newValue
+            ? defaultValue === state[stateParam]
+                ? state
+                : { ... state, [stateParam]: defaultValue }
+            : updateParam( state, stateParam, newValue );
 
-export const updateRequired = <P extends string, V extends any, S extends { [k: string]: any }>(
-    state: S | Error,
+export const updateRequired = <P extends string, V extends any>(
     stateParam: P,
     newValue: V | Error
-): Error | S & Record<P, V> =>
-    state instanceof Error
-        ? state
-    : newValue instanceof Error
-        ? newValue
-    : updateParam( state, stateParam, newValue );
+) =>
+    <S extends { [k: string]: any }>( state: S ): Error | S & Record<P, V> =>
+        newValue instanceof Error
+            ? newValue
+        : updateParam( state, stateParam, newValue );
