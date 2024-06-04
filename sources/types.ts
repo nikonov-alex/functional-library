@@ -1,4 +1,6 @@
-type Maybe<A> = A | false;
+type Either<A, B> = A | B;
+
+type Maybe<A> = Either<A, false>;
 
 type EmptyList = null;
 
@@ -16,4 +18,4 @@ type List<A> =
 
 
 
-export { Maybe, EmptyList, List, Cons };
+export { Either, Maybe, EmptyList, List, Cons };
