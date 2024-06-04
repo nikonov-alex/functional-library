@@ -7,12 +7,6 @@ export const apply = <T>( predicate: { ( a: any ): a is T } ) =>
                 ? a
                 : modifier( a );
 
-export const append = <T>( predicate: { ( value: any ): value is T } ) =>
-    <A extends {}, F extends string, V>( a: A, field: F, value: V | T ): A & Record<F, V> | T =>
-        predicate( value )
-            ? value
-            : ( { ... a, [field]: value } ) as A & Record<F, V>;
-
 const updateParam = <P extends string, V extends any, S extends { [k: string]: any }>(
     state: S,
     stateParam: P,
@@ -42,3 +36,10 @@ export const updateRequired = <P extends string, V extends any>(
         newValue instanceof Error
             ? newValue
         : updateParam( state, stateParam, newValue );
+
+export const append = <T>( predicate: { ( value: any ): value is T } ) =>
+    <F extends string, V>( field: F, value: V | T ) =>
+        <A extends {}>( a: A ): A & Record<F, V> | T =>
+            predicate( value )
+                ? value
+                : ( { ... a, [field]: value } ) as A & Record<F, V>;
