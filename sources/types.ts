@@ -17,5 +17,4 @@ type List<A> =
     };
 
 
-
 export { Either, Maybe, EmptyList, List, Cons };
