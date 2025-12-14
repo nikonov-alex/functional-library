@@ -9,6 +9,12 @@ const cons = <A, B, C extends (Cons<any, any> | EmptyList)>( first: A, rest: Con
 const isEmpty = ( value: unknown ): value is EmptyList =>
     EMPTY_LIST === value;
 
+const head = <A>( list: Cons<A, List<A>> ): A =>
+    list.first;
+
+const tail = <A>( list: Cons<A, List<A>> ): List<A> =>
+    list.rest;
+
 
 
 
@@ -89,4 +95,4 @@ const count = ( list: Cons<any, any> | EmptyList ): number =>
 
 
 
- export { EMPTY_LIST, cons, isEmpty, list, fold, map, filter, concat, prepend, reverse, find, count }
+ export { EMPTY_LIST, cons, isEmpty, list, fold, map, filter, concat, prepend, reverse, find, count, head, tail }
